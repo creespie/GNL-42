@@ -3,114 +3,63 @@
 char *get_next_line(int fd)
 {
 	static char *stash;
-	char 		*buf;
-	char		*line;
 	char		*temp;
-	ssize_t		bytes;
-	int			len;
+	int			output;
+	char		*buf;
 
-	while (check_first_n(stash) == -1)
+	output = ft_use_read(&stash, temp, buf, fd);
+	if (output == 0)
+	{
+		temp = stash;
+		stash = NULL;
+		return (temp);
+	}
+	else if (output == -1)
+		return (NULL);
+	return (ft_extract_line(&stash));
+}
+
+static int	ft_use_read(char **stash, char *temp, char *buf, int fd)
+{
+	ssize_t		bytes;
+
+	while (check_first_n(*stash) == -1)
 	{
 		buf = (char *)malloc(BUFFER_SIZE + 1);
 		bytes = read(fd, buf, BUFFER_SIZE);
 		if (bytes == 0)
-			{
-				free(buf);
-				temp = stash;
-				stash = NULL;
-				return (temp);
-			}
+		{
+			free(buf);
+			return (0);
+		}
 		else if (bytes == -1)
-			{
-				free(buf);
-				return (NULL);
-			}
+		{
+			free(buf);
+			return (-1);
+		}
 		buf[bytes] = '\0';
-		temp = ft_strconcat(stash, buf, bytes);
-		free(stash);
-		stash = temp;
+		temp = ft_strconcat(*stash, buf, bytes);
+		free(*stash);
+		*stash = temp;
 		free(buf);
 	}
-	len = check_first_n(stash);
-	if (stash != NULL && len != -1)
+	return (1);
+}
+
+static char	*ft_extract_line(char **stash)
+{
+	char		*line;
+	char		*temp;
+	int			len;
+
+	len = check_first_n(*stash);
+	if (*stash != NULL && len != -1)
 	{
-		line = ft_strisolate(stash, 0, len);
-		temp = ft_strisolate(stash, len, ft_strlen(stash) - len);
-		free(stash);
-		stash = temp;
+		line = ft_strisolate(*stash, 0, len);
+		temp = ft_strisolate(*stash, len, ft_strlen(*stash) - len);
+		free(*stash);
+		*stash = temp;
 		return (line);
 	}
 	return (NULL);
-}
-
-int	check_first_n(char *string)
-{
-	int	i;
-
-	i = 0;
-	if (!string)
-    	return (-1);
-	while (string[i])
-	{
-		if (string[i] == '\n')
-			{
-				i++;
-				return(i);
-			}
-		i++;
-	}
-	return(-1);
-}
-
-int	ft_strlen(char *string)
-{
-	int	i;
-
-	i = 0;
-	if (!string)
-		return (0);
-	while (string[i])
-		i++;
-	return(i);
-}
-
-char	*ft_strisolate(char *stash, int start, int len)
-{
-	char	*isolate;
-	int 	i;
-
-	i = 0;
-	isolate = (char *)malloc(len - start + 1);
-	while(start < len)
-	{
-		isolate[i] = stash[start];
-		i++;
-		start++;
-	}
-	isolate[i] = '\0';
-	return (isolate);
-}
-
-char	*ft_strconcat(char *stash, char *buf, int bytes)
-{
-	char	*concat;
-	int 	i;
-	int		stash_len;
-
-	stash_len = ft_strlen(stash);
-	i = 0;
-	concat = (char *)malloc(stash_len + bytes + 1);
-	while(i < stash_len)
-	{
-		concat[i] = stash[i];
-		i++;
-	}
-	i = 0;
-	while(i < bytes)
-	{
-		concat[i + stash_len] = buf[i];
-		i++;
-	}
-	concat[i + stash_len] = '\0';
-	return (concat);
 }

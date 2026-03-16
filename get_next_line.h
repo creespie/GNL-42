@@ -9,6 +9,10 @@
 # define BUFFER_SIZE 42
 #endif
 ssize_t read(int fd, void *buf, size_t count);
-char *get_next_line(int fd);
+char    *get_next_line(int fd);
+int	    check_first_n(char *string);
+int	    ft_strlen(char *string);
+char    *ft_strconcat(char *stash, char *buf, int bytes);
+int	    ft_strlen(char *string);
 
 #endif
