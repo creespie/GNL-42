@@ -7,6 +7,8 @@ char *get_next_line(int fd)
 	int			output;
 	char		*buf;
 
+	temp = NULL;
+	buf = NULL;
 	output = ft_use_read(&stash, temp, buf, fd);
 	if (output == 0)
 	{
