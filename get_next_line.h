@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lurossi <lurossi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/22 15:00:44 by lurossi           #+#    #+#             */
+/*   Updated: 2026/05/22 15:26:38 by lurossi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GET_NEXT_LINE_H
 #define GET_NEXT_LINE_H
 
@@ -13,6 +25,6 @@ char    *get_next_line(int fd);
 int	    check_first_n(char *string);
 int	    ft_strlen(char *string);
 char    *ft_strconcat(char *stash, char *buf, int bytes);
-int	    ft_strlen(char *string);
+char	*ft_strisolate(char *stash, int start, int len);
 
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lurossi <lurossi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/22 15:00:30 by lurossi           #+#    #+#             */
+/*   Updated: 2026/05/22 16:13:46 by lurossi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 int	check_first_n(char *string)
@@ -37,8 +49,10 @@ char	*ft_strisolate(char *stash, int start, int len)
 	int 	i;
 
 	i = 0;
-	isolate = (char *)malloc(len - start + 1);
-	while(start < len)
+	if (len == 0)
+		return (NULL);
+	isolate = (char *)malloc(len + 1);
+	while(i < len)
 	{
 		isolate[i] = stash[start];
 		i++;
