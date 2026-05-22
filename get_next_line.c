@@ -6,7 +6,7 @@
 /*   By: lurossi <lurossi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 15:00:21 by lurossi           #+#    #+#             */
-/*   Updated: 2026/05/22 16:13:45 by lurossi          ###   ########.fr       */
+/*   Updated: 2026/05/22 16:22:38 by lurossi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	ft_use_read(char **stash, char *temp, char *buf, int fd)
 {
 	ssize_t		bytes;
+
 	buf = (char *)malloc(BUFFER_SIZE + 1);
 	while (check_first_n(*stash) == -1)
 	{
@@ -33,7 +34,6 @@ static int	ft_use_read(char **stash, char *temp, char *buf, int fd)
 		temp = ft_strconcat(*stash, buf, bytes);
 		free(*stash);
 		*stash = temp;
-		
 	}
 	free(buf);
 	return (1);
@@ -57,9 +57,9 @@ static char	*ft_extract_line(char **stash)
 	return (NULL);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	static char *stash;
+	static char	*stash;
 	char		*temp;
 	int			output;
 	char		*buf;
